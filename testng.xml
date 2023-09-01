@@ -16,6 +16,7 @@
   <test  name="TestBox">
     <classes>
       <class name="com.demoqa1.testcases.OpenBrowserAndURL"/>
+      <class name="com.demoqa1.testcases.TC_0001_TextBox_Test"/>
     </classes>
   </test> <!-- Test -->
   
