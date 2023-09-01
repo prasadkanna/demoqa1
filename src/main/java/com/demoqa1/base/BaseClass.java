@@ -46,16 +46,18 @@ public class BaseClass {
 	public static FileInputStream fi;
 	public static Properties pro;
 	
-	public static SoftAssert softassert = new SoftAssert();
-
-	public ExcelReader demoQA_excel1 = new ExcelReader(Paths.excel);
-
 	public static ExtentReports rep = ExtentManager.getInstance();
 	public static ExtentTest test;
 	public static Logger log = Logger.getLogger("devpinoyLogger");
+	public ExcelReader demoQA_excel1 = new ExcelReader(Paths.excel);
+	public static SoftAssert softassert = new SoftAssert();
+
+	
+
 	
 
 	public static void setUp() throws Exception {
+		
 		fi = new FileInputStream(Paths.config);
 		pro = new Properties();
 		pro.load(fi);
@@ -96,81 +98,48 @@ public class BaseClass {
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
 	}
-	public WebElement locator1(String locatorkey) {
 	
-		try {
-			if (!isElementPresent(locatorkey)) {
-				System.out.println("Element not present " + locatorkey);
-			}else if (!isElementVisible(locatorkey)) {
-				System.out.println("Element not visible " + locatorkey);
-			}
-			
-		}catch(Exception e) {
-			System.out.println("");
-		}
-		
-		return driver.findElement(getLocator(locatorkey));
 
-		//return driver.findElement(By.xpath(pro.getProperty(locatorkey)));
-	}
-	
-	public void locator(String locatorkey) {
-		
-		try {
-			if (!isElementPresent(locatorkey)) {
-				System.out.println("Element not present " + locatorkey);
-			}
-			if (!isElementVisible(locatorkey)) {
-				System.out.println("Element not visible " + locatorkey);
-			}
-			
-		}catch(Exception e) {
-			System.out.println("");
-		}
-		
-		driver.findElement(getLocator(locatorkey));
-
-		//return driver.findElement(By.xpath(pro.getProperty(locatorkey)));
-	}
 
 
 	public WebElement getElement(String locatorkey) {
 
 		WebElement e = driver.findElement(getLocator(locatorkey));
 		return e;
-
-		
-
 	}
-
+	
 	public List<WebElement> getElements(String locatorkey) {
-//		if (!isElementPresent(locatorkey)) {
-//			System.out.println("Element not present " + locatorkey);
-//		}
-//		if (!isElementVisible(locatorkey)) {
-//			System.out.println("Element not visible " + locatorkey);
-//		}
-		
+
 		return driver.findElements(getLocator(locatorkey));
 
 	}
-
+	
 	public void clickJS(String locatorkey) {
 
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("arguments[0].click();", getElement(locatorkey));
 
 	}
-
-	public void clear(String locatorkey) {
-		getElement(locatorkey).clear();
-	}
-
+	
 	public void clickJSValue(WebElement value) {
 
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("arguments[0].click();", value);
 
+	}
+	
+	public void clear(String locatorkey) {
+		
+		getElement(locatorkey).clear();
+		
+	}
+	
+	public String singlegetText(String locatorkey) {
+		
+		String tx = getElement(locatorkey).getText();
+		System.out.println(tx);
+		return tx;
+		
 	}
 
 	static List<WebElement> ite;
@@ -222,6 +191,7 @@ public class BaseClass {
 	return locats1;
 }
 	
+	
 	public void printTable(String locators, String c1, String c2){
 		
 		List<WebElement> tablerows = getElements(locators);
@@ -242,15 +212,11 @@ public class BaseClass {
 		}
 	}
 	
-	public String singlegetText(String locatorkey) {
-		String tx = getElement(locatorkey).getText();
-		System.out.println(tx);
-		return tx;
-	}
+	
 	
 	public Select select(String locatorkey) {
+		
 		Select select1 = new Select(getElement(locatorkey));
-
 		return select1;
 	}
 	
@@ -416,6 +382,10 @@ public class BaseClass {
 	public static void tear() {
 		driver.quit();
 	}
+	
+	public static void close() {
+		driver.close();
+	}
 
 	public boolean isElementPresent(String locatorkey) {
 		// System.out.println("Checking presence of " + locatorkey);
@@ -440,6 +410,52 @@ public class BaseClass {
 		return true;
 
 	}
+	
+	
+	public WebElement locator1(String locatorkey) {
+	
+		try {
+			if (!isElementPresent(locatorkey)) {
+				System.out.println("Element not present " + locatorkey);
+			}else if (!isElementVisible(locatorkey)) {
+				System.out.println("Element not visible " + locatorkey);
+			}
+			
+		}catch(Exception e) {
+			System.out.println("");
+		}
+		
+		return driver.findElement(getLocator(locatorkey));
+
+		//return driver.findElement(By.xpath(pro.getProperty(locatorkey)));
+	}
+	
+	public void locator(String locatorkey) {
+		
+		try {
+			if (!isElementPresent(locatorkey)) {
+				System.out.println("Element not present " + locatorkey);
+			}
+			if (!isElementVisible(locatorkey)) {
+				System.out.println("Element not visible " + locatorkey);
+			}
+			
+		}catch(Exception e) {
+			System.out.println("");
+		}
+		
+		driver.findElement(getLocator(locatorkey));
+
+		//return driver.findElement(By.xpath(pro.getProperty(locatorkey)));
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 
 	public By getLocator(String locatorkey) {
 		By by = null;
