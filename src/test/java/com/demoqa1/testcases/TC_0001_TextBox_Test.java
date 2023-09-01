@@ -10,7 +10,7 @@ import com.demoqa1.utilities.Utility;
 public class TC_0001_TextBox_Test {
 	
 	@Test(priority = 1, groups = {"smoke","regression","sanity","functional"})
-	public void click_TextBox() {
+	public void click_TextBox() throws Exception {
 		
 		TC_0001_TextBox_Page tb = new TC_0001_TextBox_Page();
 		tb.click_TextBox();
